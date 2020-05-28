@@ -6,4 +6,4 @@
 
 ## Nivel 1
 
-- [Desafio 02:](https://github.com/mesquini/gostack11/tree/master/nivel1/desafio-conceitos-nodejs) Conceitos do Node.js
+- [Desafio 02:](https://github.com/mesquini/gostack11/tree/master/nivel1/conceitos-nodejs) Conceitos do Node.js
