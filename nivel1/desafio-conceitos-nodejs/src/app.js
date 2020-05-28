@@ -8,6 +8,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+function logRequest(req, res, next) {
+  const { method, url } = req;
+
+  const labelLog = `[${method.toUpperCase()}] ${url}`;
+
+  console.time(labelLog);
+
+  next();
+
+  return console.timeEnd(labelLog);
+}
+
+app.use(logRequest);
+
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
