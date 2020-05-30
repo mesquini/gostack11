@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import React from "react";
-=======
 import React, { useEffect, useState } from "react";
 
 import api from "./services/api";
->>>>>>> 583e468050bd43c32a9fd961f7592fca3bfabafe
 
 import {
   SafeAreaView,
@@ -17,10 +13,6 @@ import {
 } from "react-native";
 
 export default function App() {
-<<<<<<< HEAD
-  async function handleLikeRepository(id) {
-    // Implement "Like Repository" functionality
-=======
   const [repositories, setRepositories] = useState([]);
 
   useEffect(() => {
@@ -36,42 +28,12 @@ export default function App() {
     });
 
     setRepositories(repos);
->>>>>>> 583e468050bd43c32a9fd961f7592fca3bfabafe
   }
 
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
       <SafeAreaView style={styles.container}>
-<<<<<<< HEAD
-        <View style={styles.repositoryContainer}>
-          <Text style={styles.repository}>as 1asd</Text>
-
-          <View style={styles.techsContainer}>
-            <Text style={styles.tech}>ReactJSa</Text>
-            <Text style={styles.tech}>Node.js</Text>
-          </View>
-
-          <View style={styles.likesContainer}>
-            <Text
-              style={styles.likeText}
-              // Remember to replace "1" below with repository ID: {`repository-likes-${repository.id}`}
-              testID={`repository-likes-1`}
-            >
-              3 curtidas
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handleLikeRepository(1)}
-            // Remember to replace "1" below with repository ID: {`like-button-${repository.id}`}
-            testID={`like-button-1`}
-          >
-            <Text style={styles.buttonText}>Curtir</Text>
-          </TouchableOpacity>
-        </View>
-=======
         <FlatList
           data={repositories}
           keyExtractor={(repo) => repo.id}
@@ -108,7 +70,6 @@ export default function App() {
             </View>
           )}
         />
->>>>>>> 583e468050bd43c32a9fd961f7592fca3bfabafe
       </SafeAreaView>
     </>
   );
@@ -154,10 +115,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
-<<<<<<< HEAD
-=======
+
     borderRadius: 4,
->>>>>>> 583e468050bd43c32a9fd961f7592fca3bfabafe
   },
   buttonText: {
     fontSize: 14,
@@ -166,9 +125,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     backgroundColor: "#7159c1",
     padding: 15,
-<<<<<<< HEAD
-=======
     textAlign: "center",
->>>>>>> 583e468050bd43c32a9fd961f7592fca3bfabafe
   },
 });
