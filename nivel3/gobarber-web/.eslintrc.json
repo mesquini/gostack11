@@ -18,22 +18,16 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "@typescript-eslint",
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "react-hookes/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "no-unused-expressions": "error",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "import/prefer-default-export": "off",
@@ -54,7 +48,9 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "directory": "packages/server/*/tsconfig.json"
+      }
     }
   }
 }
