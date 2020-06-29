@@ -6,11 +6,13 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
-import routes from './routes';
-import uploadConfig from './configs/upload';
+import uploadConfig from '@configs/upload';
+import routes from '@shared/infra/http/routes';
 
-import './database';
-import AppError from './errors/AppError';
+import AppError from '@shared/errors/AppError';
+
+import '@shared/infra/typeorm';
+import '@shared/container';
 
 const app = express();
 
@@ -39,5 +41,5 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
 });
 
 app.listen(3333, () => {
-  console.log('Server started on port 3333');
+  console.log('-> Server started on port 3333');
 });
