@@ -1,4 +1,3 @@
-import AppError from '@shared/errors/AppError';
 import ListProviderMonthAvailabilityService from '@modules/appointments/services/ListProviderMonthAvailabilityService';
 
 import FakeAppointmentRepository from '../repositories/fake/FakeAppointmentRepository';
@@ -19,16 +18,19 @@ describe('ListProviderMonthAvailability', () => {
     await fakeAppointmentRepository.create({
       provider_id: 'user',
       date: new Date(2020, 6, 20, 8, 0, 0),
+      user_id: 'user',
     });
 
     await fakeAppointmentRepository.create({
       provider_id: 'user',
       date: new Date(2020, 6, 20, 10, 0, 0),
+      user_id: 'user',
     });
 
     await fakeAppointmentRepository.create({
       provider_id: 'user',
       date: new Date(2020, 6, 21, 10, 0, 0),
+      user_id: 'user',
     });
 
     const availability = await listProviderMonthAvailability.run({
