@@ -1,0 +1,45 @@
+import 'reflect-metadata';
+import { inject, injectable } from 'tsyringe';
+
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import Appointment from '../infra/typeorm/entities/Appointment';
+
+interface IRequest {
+  provider_id: string;
+  day: number;
+  month: number;
+  year: number;
+}
+
+type IResponse = Array<{
+  day: number;
+  available: boolean;
+}>;
+
+@injectable()
+class ListProviderAppontmentsService {
+  constructor(
+    @inject('AppointmentsRepository')
+    private appointmentsRepository: IAppointmentsRepository,
+  ) {}
+
+  public async run({
+    provider_id,
+    day,
+    month,
+    year,
+  }: IRequest): Promise<Appointment[]> {
+    const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
+      {
+        provider_id,
+        day,
+        month,
+        year,
+      },
+    );
+
+    return appointments;
+  }
+}
+
+export default ListProviderAppontmentsService;
