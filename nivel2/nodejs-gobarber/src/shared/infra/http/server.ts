@@ -1,10 +1,12 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import { errors } from 'celebrate';
 
 import uploadConfig from '@configs/upload';
 import routes from '@shared/infra/http/routes';
@@ -21,6 +23,8 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 app.use('/files', express.static(uploadConfig.uploadsFolder));
+
+app.use(errors());
 
 app.use(routes);
 
