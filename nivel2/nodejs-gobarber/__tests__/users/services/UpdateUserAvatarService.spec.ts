@@ -28,7 +28,10 @@ describe('UpdateUserAvatar', () => {
 
     await updateUserAvatar.run({
       user_id: user.id,
-      avatarFileName: 'avatar.jpg',
+      file: {
+        avatarFileName: 'avatar.jpg',
+        contentType: 'image/jpg',
+      },
     });
 
     expect(user.avatar).toBe('avatar.jpg');
@@ -37,7 +40,10 @@ describe('UpdateUserAvatar', () => {
     await expect(
       updateUserAvatar.run({
         user_id: 'user-not-found',
-        avatarFileName: 'avatar.jpg',
+        file: {
+          avatarFileName: 'avatar.jpg',
+          contentType: 'image/jpg',
+        },
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -53,12 +59,18 @@ describe('UpdateUserAvatar', () => {
 
     await updateUserAvatar.run({
       user_id: user.id,
-      avatarFileName: 'avatar.jpg',
+      file: {
+        avatarFileName: 'avatar.jpg',
+        contentType: 'image/jpg',
+      },
     });
 
     await updateUserAvatar.run({
       user_id: user.id,
-      avatarFileName: 'avatar2.jpg',
+      file: {
+        avatarFileName: 'avatar2.jpg',
+        contentType: 'image/jpg',
+      },
     });
 
     expect(deleteFile).toHaveBeenCalledWith('avatar.jpg');

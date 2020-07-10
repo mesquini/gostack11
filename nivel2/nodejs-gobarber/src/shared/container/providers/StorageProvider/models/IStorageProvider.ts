@@ -1,4 +1,6 @@
+import ISaveFileDTO from '../dtos/ISaveFileDTO';
+
 export default interface IStorageProvider {
-  saveFile(file: string): Promise<string>;
+  saveFile(data: ISaveFileDTO): Promise<string>;
   deleteFile(file: string): Promise<void>;
 }

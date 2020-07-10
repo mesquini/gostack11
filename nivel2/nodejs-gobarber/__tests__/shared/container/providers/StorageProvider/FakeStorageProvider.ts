@@ -1,12 +1,13 @@
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import ISaveFileDTO from '@shared/container/providers/StorageProvider/dtos/ISaveFileDTO';
 
 export default class FakeStorageProvider implements IStorageProvider {
   private storage: string[] = [];
 
-  async saveFile(file: string): Promise<string> {
-    this.storage.push(file);
+  async saveFile({ file }: ISaveFileDTO): Promise<string> {
+    this.storage.push(file.avatarFileName);
 
-    return file;
+    return file.avatarFileName;
   }
 
   async deleteFile(file: string): Promise<void> {

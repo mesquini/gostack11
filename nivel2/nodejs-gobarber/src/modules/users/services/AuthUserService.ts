@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 

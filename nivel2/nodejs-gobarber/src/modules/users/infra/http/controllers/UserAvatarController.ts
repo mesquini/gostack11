@@ -10,7 +10,10 @@ export default class UserAvatarController {
 
     const user = await updateAvatarUser.run({
       user_id: req.user.id,
-      avatarFileName: req.file.filename,
+      file: {
+        avatarFileName: req.file.filename,
+        contentType: req.file.mimetype,
+      },
     });
 
     return res.status(201).json(classToClass(user));

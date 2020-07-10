@@ -3,15 +3,16 @@ import path from 'path';
 
 import uploadConfig from '@configs/upload';
 import IStorageProvider from '../models/IStorageProvider';
+import ISaveFileDTO from '../dtos/ISaveFileDTO';
 
 export default class DiskStorageProvider implements IStorageProvider {
-  async saveFile(file: string): Promise<string> {
+  async saveFile({ file }: ISaveFileDTO): Promise<string> {
     await fs.promises.rename(
-      path.resolve(uploadConfig.tmpFolder, file),
-      path.resolve(uploadConfig.uploadsFolder, file),
+      path.resolve(uploadConfig.tmpFolder, file.avatarFileName),
+      path.resolve(uploadConfig.uploadsFolder, file.avatarFileName),
     );
 
-    return file;
+    return file.avatarFileName;
   }
 
   async deleteFile(file: string): Promise<void> {

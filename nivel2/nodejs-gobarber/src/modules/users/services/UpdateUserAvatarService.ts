@@ -8,7 +8,10 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   user_id: string;
-  avatarFileName: string;
+  file: {
+    avatarFileName: string;
+    contentType: string;
+  };
 }
 
 @injectable()
@@ -21,7 +24,7 @@ class UpdateUserAvatarService {
     private storageProvider: IStorageProvider,
   ) {}
 
-  public async run({ user_id, avatarFileName }: IRequest): Promise<User> {
+  public async run({ user_id, file }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user)
@@ -31,7 +34,7 @@ class UpdateUserAvatarService {
       await this.storageProvider.deleteFile(user.avatar);
     }
 
-    const filename = await this.storageProvider.saveFile(avatarFileName);
+    const filename = await this.storageProvider.saveFile({ file });
 
     user.avatar = filename;
 
