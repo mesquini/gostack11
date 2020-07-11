@@ -3,15 +3,18 @@ import 'dotenv/config';
 
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
+
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+
 import { errors } from 'celebrate';
 
 import uploadConfig from '@configs/upload';
 import routes from '@shared/infra/http/routes';
 
 import AppError from '@shared/errors/AppError';
+import rateLimiter from './middlewares/rateLimiter';
 
 import '@shared/infra/typeorm';
 import '@shared/container';
@@ -22,6 +25,7 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(rateLimiter);
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 
 app.use(errors());
