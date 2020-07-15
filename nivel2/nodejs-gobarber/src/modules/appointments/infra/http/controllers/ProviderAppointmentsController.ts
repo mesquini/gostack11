@@ -2,21 +2,22 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import ListProviderAppointmentsService from '@modules/appointments/services/ListProviderAppointmentsService';
+import { classToClass } from 'class-transformer';
 
 export default class ProviderAppointmentController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { day, month, year } = req.body;
+    const { day, month, year } = req.query;
     const provider_id = req.user.id;
 
-    const listAppoitment = container.resolve(ListProviderAppointmentsService);
+    const listAppointment = container.resolve(ListProviderAppointmentsService);
 
-    const appointments = await listAppoitment.run({
-      day,
-      month,
-      year,
+    const appointments = await listAppointment.run({
+      day: Number(day),
+      month: Number(month),
+      year: Number(year),
       provider_id,
     });
 
-    return res.json(appointments);
+    return res.json(classToClass(appointments));
   }
 }

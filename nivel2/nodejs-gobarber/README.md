@@ -1,5 +1,9 @@
 # GoBarber - API
 
+<p align="center">
+  <a href="https://insomnia.rest/run/?label=GoBarber&uri=https%3A%2F%2Fgithub.com%2Fmesquini%2Fgostack11%2Ftree%2Fmaster%2Fnivel2%2Fnodejs-gobarber%2FInsomnia_2020-07-15.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+</p>
+
 # Funcionalidades macros:
 
 ## Recuperação de senha
