@@ -10,7 +10,7 @@ import api from '../services/api';
 
 interface IAuthState {
   token: string;
-  user: object;
+  user: IUser;
 }
 
 interface ICredentials {
@@ -19,10 +19,17 @@ interface ICredentials {
 }
 
 interface IAuthContext {
-  user: object;
+  user: IUser;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
   loading: boolean;
+}
+
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -39,6 +46,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       ]);
 
       if (token[1] && user[1]) {
+        api.defaults.headers.authorization = `Bearer ${token[1]}`;
         setData({ token: token[1], user: JSON.parse(user[1]) });
       }
 
@@ -55,10 +63,16 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
+    user.avatar_url = !!user.avatar_url
+      ? user.avatar_url
+      : `https://api.adorable.io/avatars/180/${user.name}`;
+
     await AsyncStorage.multiSet([
       ['@GoBarber:token', token],
       ['@GoBarber:user', JSON.stringify(user)],
     ]);
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
