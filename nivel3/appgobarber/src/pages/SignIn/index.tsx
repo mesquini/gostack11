@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import {
   Image,
   View,
@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -40,8 +41,26 @@ const SingIn: React.FC = () => {
 
   const { signIn } = useAuth();
 
+  useEffect(() => {
+    permissions();
+  }, []);
+
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+
+  const permissions = useCallback(async () => {
+    if (Platform.OS === 'android') {
+      await requestMultiple([
+        PERMISSIONS.IOS.CAMERA,
+        PERMISSIONS.IOS.PHOTO_LIBRARY,
+      ]);
+    } else if (Platform.OS === 'ios') {
+      await requestMultiple([
+        PERMISSIONS.IOS.CAMERA,
+        PERMISSIONS.IOS.PHOTO_LIBRARY,
+      ]);
+    }
+  }, []);
 
   const handleSignIn = useCallback(
     async (data: ISignInFormData) => {
@@ -71,12 +90,6 @@ const SingIn: React.FC = () => {
         }
 
         Alert.alert('Erro na autenticação', 'Ocorreu um erro na autenticação');
-
-        // addToast({
-        //   type: 'error',
-        //   title: 'Erro na autenticação',
-        //   description: 'Ocorreu um erro ao fazer login, cheque as credenciais!',
-        // });
       }
     },
     [signIn],

@@ -22,6 +22,7 @@ interface IAuthContext {
   user: IUser;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
+  updateUser(user: IUser): Promise<void>;
   loading: boolean;
 }
 
@@ -77,6 +78,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({ token, user });
   }, []);
 
+  const updateUser = useCallback(
+    async (user: IUser) => {
+      user.avatar_url = !!user.avatar_url
+        ? user.avatar_url
+        : `https://api.adorable.io/avatars/180/${user.name}`;
+      await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+      setData({
+        token: data.token,
+        user,
+      });
+    },
+    [setData, data.token],
+  );
+
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
 
@@ -84,7 +100,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut, loading }}>
+    <AuthContext.Provider
+      value={{ user: data.user, signIn, signOut, updateUser, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
