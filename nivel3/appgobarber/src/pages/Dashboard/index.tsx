@@ -80,9 +80,9 @@ const Dashboard: React.FC = () => {
           >
             <ProviderAvatar
               source={{
-                uri:
-                  provider.avatar_url ||
-                  `https://api.adorable.io/avatars/180/${provider.name}`,
+                uri: provider.avatar_url
+                  ? provider.avatar_url
+                  : `https://api.adorable.io/avatars/180/${provider.name}`,
               }}
             />
 

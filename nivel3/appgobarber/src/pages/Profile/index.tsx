@@ -41,11 +41,11 @@ const Profile: React.FC = () => {
   const navigation = useNavigation();
   const { user, updateUser } = useAuth();
 
+  const formRef = useRef<FormHandles>(null);
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const oldPasswordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
-  const formRef = useRef<FormHandles>(null);
 
   const handleUpdate = useCallback(
     async (data: IUpdateFormData) => {
@@ -140,19 +140,11 @@ const Profile: React.FC = () => {
           return;
         }
 
-        const source = {
-          uri: response.uri,
-          name: response.fileName,
-          type: response.type,
-        };
-
-        console.log(source);
-
         const data = new FormData();
 
         data.append('avatar', {
-          type: 'image/jpeg',
-          name: `${response.fileName}.${response.type}`,
+          type: response.type,
+          name: response.fileName,
           uri: response.uri,
         });
 
