@@ -17,20 +17,18 @@ interface ICredentials {
   email: string;
   password: string;
 }
-
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+}
 interface IAuthContext {
   user: IUser;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
   updateUser(user: IUser): Promise<void>;
   loading: boolean;
-}
-
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  avatar_url: string;
 }
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -83,6 +81,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       user.avatar_url = !!user.avatar_url
         ? user.avatar_url
         : `https://api.adorable.io/avatars/180/${user.name}`;
+
       await AsyncStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
       setData({
