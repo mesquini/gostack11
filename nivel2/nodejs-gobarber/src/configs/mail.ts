@@ -8,6 +8,7 @@ interface IMailConfig {
     };
   };
 }
+
 export default {
   driver: process.env.MAIL_DRIVER || 'ethereal',
 
